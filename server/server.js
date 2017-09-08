@@ -16,6 +16,7 @@ app.post('/todos', (req, res) => {
    var todo = new Todo({
      text: req.body.text
    });
+
    todo.save().then((doc) => {
      res.send(doc);
    }, (error) => {
@@ -23,6 +24,7 @@ app.post('/todos', (req, res) => {
    });
 });
 
+module.exports = {app};
 
 
 
