@@ -11,7 +11,7 @@ var {User} = require('./models/user');
 
 var app = express();
 
-var port = provess.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 
 
 
