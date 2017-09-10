@@ -11,6 +11,10 @@ var {User} = require('./models/user');
 
 var app = express();
 
+var port = provess.env.PORT || 3000;
+
+
+
 app.use(bodyParser.json());
 
 // To create a todo record
@@ -58,8 +62,8 @@ app.get('/todos/:id', (req, res) => {
 
 
 
-app.listen(3000, () => {
-  console.log('Started on port 3000.');
+app.listen(port, () => {
+  console.log(`started up at port ${port}`);
 });
 
 module.exports = {app};
