@@ -1,5 +1,7 @@
 var express    = require('express');
 var bodyParser = require('body-parser');
+var cool = require('cool-ascii-faces');
+
 
 const {ObjectID} = require('mongodb');
 
@@ -37,6 +39,11 @@ app.get('/todos', (req, res) => {
     res.status(400).send(error);
   });
 });
+
+app.get('/cool', function(request, response) {
+  response.send(cool());
+});
+
 
 // GET /todos/123456
 
