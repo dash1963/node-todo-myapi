@@ -111,6 +111,33 @@ app.patch('/todos/:id', (req,res) => {
   });
 });
 
+// To create a USER record
+app.post('/users', (req, res) => {
+  var body = _.pick(req.body, ['email', 'password']);
+  // body.email    = 'sergio4234@gmail.com';
+  // body.password = 'abc12';
+
+  var user = new User(body);
+
+  user.save().then(() => {
+    return user.generateAuthToken();
+  }).then((token) => {
+    res.header('x-auth', token).send(user);
+  }).catch((error) => {
+     res.status(400).send(error);
+   });
+});
+
+//  To get all USERS
+app.get('/users', (req, res) => {
+  User.find().then((users) => {
+      res.send({users});
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
+});
+
+
 
 app.listen(port, () => {
   console.log(`started up at port ${port}`);
