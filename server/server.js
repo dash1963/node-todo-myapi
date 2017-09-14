@@ -54,7 +54,7 @@ app.get('/todos/:id', (req, res) => {
   if (!ObjectID.isValid(id)) {
     return res.status(404).send('Invalid Id');
   };
-
+   console.log(`0: The id is ${id}`);
   Todo.findById(id).then((todo) => {
       if (!todo)
       { return res.status(404).send('Id Not Found!');}
@@ -68,11 +68,12 @@ app.get('/todos/:id', (req, res) => {
 
 
 app.delete('/todos/:id', (req,res) => {
-  var id = req.params.id;
-  if (!ObjectID.isValid()) {
+  var id =  req.params.id ;
+
+  if (!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
-
+   console.log(`1: The id is ${id}`);
    Todo.findByIdAndRemove(id).then((todo) => {
      if (!todo) {
        return res.status(404).send();
@@ -83,14 +84,14 @@ app.delete('/todos/:id', (req,res) => {
    });
 })
 
-app.patch('/todos:id', (req,res) => {
+app.patch('/todos/:id', (req,res) => {
   var id = req.params.id;
   var body = _.pick(req.body, ['text', 'completed']);
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
-
+  console.log(`2: The id is ${id}`);
   if (_.isBoolean(body.completed) && body.completed) {
      body.completedAt = new Date().getTime();
   } else {
@@ -98,6 +99,7 @@ app.patch('/todos:id', (req,res) => {
     body.completedAt = null;
   }
 
+  console.log(`2a: The id is ${id}`);
   Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
     if (!todo) {
       return res.status(404).send();
