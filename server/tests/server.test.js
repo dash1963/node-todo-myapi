@@ -277,7 +277,7 @@ describe('POST /users/login', () => {
        .post('/users/login')
        .send({
          email: users[1].email,
-         password: 'Serge'
+         password: users[1].password + 'Serge'
        })
        .expect(400)
        .expect((res) => {
